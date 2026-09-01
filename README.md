@@ -46,8 +46,8 @@ steps for you. Datasets land in `data/`, which is not committed to the repositor
 
 ### Why there is no Docker image
 
-A container would only add prerequisites — Docker Desktop, WSL2 on Windows, a
-~1 GB base image to download — to solve a problem this project does not have: it
+A container would only add prerequisites, Docker Desktop, WSL2 on Windows, a
+~1 GB base image to download, to solve a problem this project does not have: it
 has zero external dependencies and compiles offline in a few seconds. Installing
 Rust through rustup is lighter and faster than installing Docker.
 
@@ -76,8 +76,8 @@ re-initialized from a seeded PRNG, so every reported metric is identical across
 runs (only wall-clock timings vary).
 
 Beyond the experiments, `cargo test` runs 30 tests: unit tests for every tensor
-operation, layer, loss and optimizer — including finite-difference gradient
-checks — plus end-to-end training integration tests.
+operation, layer, loss and optimizer, including finite-difference gradient
+checks, plus end-to-end training integration tests.
 
 ---
 
@@ -118,20 +118,3 @@ would.
 
 ---
 
-## Design notes
-
-A few decisions worth highlighting, all discussed at length in the specification:
-
-- **Composition via trait objects.** `Sequential` holds `Vec<Box<dyn Module>>`
-  rather than nesting generics, so a network's type does not encode its structure
-  and an `Optimizer` can depend on the `Module` interface alone.
-- **Ownership.** `Module::forward` takes its input **by value**, so a layer can
-  cache the activation it needs for the backward pass with zero copying.
-  Parameters are lent out through `params()` / `params_mut()` / `grads()`.
-- **O(1) views.** The tensor buffer is `Rc<Vec<f32>>`, which is what lets `t()`
-  and `reshape()` share a buffer while returning an independent tensor. In-place
-  mutation goes through `Rc::make_mut`, so a transposed view is never corrupted by
-  updating the original.
-- **Batch normalization of gradients.** The `1/N` factor is applied once, at the
-  loss, and propagates unchanged through every VJP — so optimizers stay entirely
-  unaware of the batch dimension.
