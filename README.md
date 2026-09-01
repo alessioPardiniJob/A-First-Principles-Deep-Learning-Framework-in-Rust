@@ -1,11 +1,11 @@
 # A First-Principles Deep Learning Framework in Rust
 
 A small deep learning framework written from scratch in Rust, with **no external
-dependencies** — no ML, tensor or autodiff crates, and nothing at all beyond the
+dependencies**, no ML, tensor or autodiff crates, and nothing at all beyond the
 Rust standard library.
 
 The design is specified in [`docs/architecture.pdf`](docs/architecture.pdf), which
-derives four abstractions — `Tensor`, `Module`, `Loss` and `Optimizer` — from the
+derives four abstractions, `Tensor`, `Module`, `Loss` and `Optimizer`, from the
 structural, differentiation and optimization requirements of training a network.
 The code implements that specification.
 
@@ -21,7 +21,7 @@ From the project folder:
 cargo run --release
 ```
 
-That's it — it builds and runs the whole experiment suite (about 35 seconds).
+That's it, it builds and runs the whole experiment suite (about 35 seconds).
 On Windows you can also just double-click **`run.bat`**.
 
 To run the tests:
