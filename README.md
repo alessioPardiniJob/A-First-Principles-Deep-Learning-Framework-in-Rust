@@ -4,7 +4,7 @@ A small deep learning framework written from scratch in Rust, with **no external
 dependencies**, no ML, tensor or autodiff crates, and nothing at all beyond the
 Rust standard library.
 
-The design is specified in [`docs/architecture.pdf`](docs/architecture.pdf), which
+The design is specified in [`architecture.pdf`](architecture.pdf), which
 derives four abstractions, `Tensor`, `Module`, `Loss` and `Optimizer`, from the
 structural, differentiation and optimization requirements of training a network.
 The code implements that specification.
