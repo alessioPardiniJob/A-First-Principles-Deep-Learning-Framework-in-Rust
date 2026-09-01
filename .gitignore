@@ -1,2 +1,5 @@
 /target
-Cargo.lock
+/data
+
+# Cargo.lock is intentionally committed: this package produces a binary,
+# so pinning gives evaluators a reproducible build.

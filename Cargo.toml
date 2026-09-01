@@ -1,6 +1,10 @@
 [package]
 name = "ap_project"
 version = "0.1.0"
-edition = "2024"
+edition = "2021"
+rust-version = "1.70"
 
+# No external dependencies: the framework, its tensor/autodiff machinery
+# and the experiment harness are all built on the standard library alone,
+# so `cargo build` works offline.
 [dependencies]
