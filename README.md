@@ -33,16 +33,37 @@ cargo test
 ### Datasets
 
 The command above works straight away with no setup: if the real datasets are not
-present, the program falls back to synthetic data and says so on screen.
+present, the program falls back to synthetic data and says so on screen. `data/`
+is not committed to the repository.
 
-To use the real MNIST and California Housing data instead, download them once
-(needs internet):
+To use the real MNIST and California Housing data instead, there are two ways to
+obtain them.
 
-- **Windows:** `powershell -File scripts/download_data.ps1`
+**Option A — automatic download (recommended).** Run once, before
+`cargo run --release`:
+
+- **Windows (PowerShell):**
+  `powershell -ExecutionPolicy Bypass -File scripts\download_data.ps1`
+  The `-ExecutionPolicy Bypass` flag is required because Windows disables
+  running local `.ps1` scripts by default; it applies only to this one
+  invocation and changes no system setting.
 - **Linux / macOS:** `./scripts/download_data.sh`
 
-Then run `cargo run --release` again. The `run.bat` / `run.sh` scripts do both
-steps for you. Datasets land in `data/`, which is not committed to the repository.
+Simplest of all on Windows: double-click **`run.bat`** (or run `./run.sh` on
+Linux/macOS). It performs the download automatically, with the same flag
+already applied, and then runs the experiment suite — no manual step needed.
+
+**Option B — manual download.** If you would rather not execute the download
+script, fetch the files yourself and place them in these exact paths:
+
+| File | Source | Destination |
+|---|---|---|
+| `train-images-idx3-ubyte.gz`, `train-labels-idx1-ubyte.gz`, `t10k-images-idx3-ubyte.gz`, `t10k-labels-idx1-ubyte.gz` | <https://storage.googleapis.com/cvdf-datasets/mnist> | decompress and place in `data/mnist/` (drop the `.gz` extension) |
+| `housing.csv` | <https://raw.githubusercontent.com/ageron/handson-ml2/master/datasets/housing/housing.csv> | `data/housing/housing.csv` |
+
+Either option leaves the program in the same state: run `cargo run --release`
+and it will report that it loaded the real data instead of the synthetic
+fallback.
 
 ### Why there is no Docker image
 
