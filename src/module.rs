@@ -1,7 +1,15 @@
 use crate::Tensor;
 
+pub mod conv2d;
+pub mod flatten;
+pub mod linear;
+pub mod relu;
 pub mod sequential;
 
+pub use conv2d::Conv2d;
+pub use flatten::Flatten;
+pub use linear::Linear;
+pub use relu::ReLU;
 pub use sequential::Sequential;
 
 /// A single parameterized transformation `g_l(z_{l-1}; theta_l)`, and the
